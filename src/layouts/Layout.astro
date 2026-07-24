@@ -1,0 +1,90 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import '../styles/main.scss';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Printt Cores — Gráfica & Estúdio de Impressão", 
+  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Geist Sans & Mono (Vercel) -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Cursor follower -->
+    <div class="cursor-follower js-cursor"></div>
+    
+    <!-- Scroll progress -->
+    <div class="scroll-progress-bar js-scroll-progress"></div>
+    
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    
+    <!-- Botão Flutuante do WhatsApp -->
+    <WhatsAppFloat />
+
+    <!-- Global GSAP: cursor follower + scroll progress -->
+    <script>
+      import { gsap } from '../utils/gsap';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const cursor = document.querySelector<HTMLElement>('.js-cursor');
+        const progressBar = document.querySelector<HTMLElement>('.js-scroll-progress');
+
+        // Cursor follower
+        if (cursor && window.matchMedia('(pointer: fine)').matches) {
+          document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+              x: e.clientX,
+              y: e.clientY,
+              duration: 0.5,
+              ease: 'power2.out'
+            });
+          });
+
+          // Escalar cursor nos links e botões
+          const interactives = document.querySelectorAll('a, button, [data-magnetic]');
+          interactives.forEach((el) => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('cursor-follower--active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-follower--active'));
+          });
+        } else if (cursor) {
+          cursor.style.display = 'none';
+        }
+
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+          const winScroll = document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const scrolled = (winScroll / height) * 100;
+          if (progressBar) {
+            progressBar.style.width = scrolled + '%';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

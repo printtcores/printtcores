@@ -1,0 +1,111 @@
+// ============================================
+// COMPONENTS / BUTTONS
+// Estilos de botão unificados
+// ============================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: $font-sans;
+  font-weight: $weight-semibold;
+  font-size: $text-body;
+  border-radius: $radius-full;
+  cursor: pointer;
+  @include smooth-transition(all);
+
+  &--primary {
+    padding: 0.95rem 2.2rem;
+    background: $color-dark;
+    color: $color-bg;
+
+    &:hover {
+      background: $cmyk-magenta;
+    }
+  }
+
+  &--whatsapp {
+    padding: 0.95rem 2.2rem;
+    background: $gradient-whatsapp;
+    color: #ffffff;
+    font-weight: $weight-bold;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+
+    &:hover {
+      box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5);
+      transform: translateY(-2px);
+    }
+  }
+
+  &--outline {
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: $color-text;
+    border: 1.5px solid rgba($color-dark, 0.15);
+
+    &:hover {
+      border-color: $color-dark;
+    }
+  }
+
+  &--ghost {
+    padding: 0.85rem 0;
+    background: none;
+    color: $color-text;
+    font-weight: $weight-medium;
+    gap: 0.5rem;
+
+    svg {
+      transition: transform $duration-normal $ease-out-expo;
+    }
+
+    &:hover svg {
+      transform: translateX(4px);
+    }
+  }
+
+  &--white {
+    padding: 1rem 2.4rem;
+    background: $color-bg;
+    color: $color-dark;
+    font-weight: $weight-bold;
+    box-shadow: $shadow-md;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+    }
+  }
+}
+
+// Botão com borda gradiente
+.btn-gradient {
+  position: relative;
+  display: inline-block;
+  padding: 1.5px;
+  border-radius: $radius-full;
+  background: $gradient-cmyk;
+  @include smooth-transition(all);
+
+  span {
+    display: block;
+    padding: 0.75rem 1.6rem;
+    border-radius: $radius-full;
+    background: $color-bg;
+    color: $color-text;
+    font-size: $text-small;
+    font-weight: $weight-semibold;
+    transition: background $duration-normal ease, color $duration-normal ease;
+  }
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba($cmyk-magenta, 0.2);
+
+    span {
+      background: $color-dark;
+      color: $color-bg;
+    }
+  }
+}

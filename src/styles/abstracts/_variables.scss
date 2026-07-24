@@ -1,0 +1,92 @@
+// ============================================
+// ABSTRACTS / VARIABLES
+// Design tokens do Printt Cores
+// ============================================
+
+// --- Paleta Principal ---
+$color-bg: #ffffff;
+$color-bg-alt: #f7f7f5;
+$color-surface: #f0eeeb;
+$color-dark: #07152d;
+$color-dark-soft: #0d1b2a;
+
+// --- CMYK & Acentos ---
+$cmyk-magenta: #e5007d;
+$cmyk-cyan: #00a3e0;
+$cmyk-yellow: #ffd100;
+$cmyk-orange: #ff5800;
+$cmyk-purple: #7000ff;
+$color-accent-green: #00c853;
+
+// --- WhatsApp ---
+$color-whatsapp: #25D366;
+$color-whatsapp-dark: #128C7E;
+$color-whatsapp-hover: #20bd5a;
+$gradient-whatsapp: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+
+// --- Texto ---
+$color-text: #07152d;
+$color-text-secondary: #3d4f5f;
+$color-text-muted: #8a9aaa;
+
+// --- Tipografia ---
+$font-sans: 'Geist Sans', system-ui, -apple-system, sans-serif;
+$font-mono: 'Geist Mono', 'SF Mono', monospace;
+
+// --- Escala tipográfica (clamp) ---
+$text-display: clamp(3.5rem, 7vw, 7rem);
+$text-h1: clamp(2.8rem, 5.5vw, 5rem);
+$text-h2: clamp(2rem, 3.5vw, 3.2rem);
+$text-h3: clamp(1.4rem, 2vw, 1.8rem);
+$text-body: 1rem;
+$text-small: 0.875rem;
+$text-xs: 0.75rem;
+
+// --- Pesos ---
+$weight-light: 300;
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+$weight-bold: 700;
+$weight-black: 900;
+
+// --- Spacing ---
+$space-xs: 0.5rem;
+$space-sm: 1rem;
+$space-md: 2rem;
+$space-lg: 4rem;
+$space-xl: 6rem;
+$space-2xl: 8rem;
+$space-section: clamp(5rem, 10vh, 10rem);
+
+// --- Gradientes ---
+$gradient-cmyk: linear-gradient(135deg, $cmyk-magenta 0%, $cmyk-purple 30%, $cmyk-cyan 60%, $cmyk-yellow 85%, $cmyk-orange 100%);
+$gradient-cta: linear-gradient(135deg, $cmyk-orange 0%, $cmyk-magenta 50%, $cmyk-purple 100%);
+$gradient-subtle: linear-gradient(135deg, rgba($cmyk-magenta, 0.06) 0%, rgba($cmyk-cyan, 0.04) 100%);
+
+// --- Transições ---
+$ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+$duration-fast: 0.2s;
+$duration-normal: 0.4s;
+$duration-slow: 0.7s;
+
+// --- Bordas e Sombras ---
+$radius-sm: 8px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-full: 99px;
+
+$shadow-sm: 0 2px 8px rgba(7, 21, 45, 0.04);
+$shadow-md: 0 8px 24px rgba(7, 21, 45, 0.06);
+$shadow-lg: 0 20px 50px rgba(7, 21, 45, 0.08);
+
+// --- Breakpoints ---
+$bp-mobile: 640px;
+$bp-tablet: 1024px;
+$bp-desktop: 1280px;
+
+// --- Container ---
+$container-max: 1200px;
+$container-padding: 2rem;
+$container-padding-mobile: 1.25rem;

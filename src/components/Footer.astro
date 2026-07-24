@@ -1,0 +1,301 @@
+---
+import { Image } from 'astro:assets';
+import brandLogo from '../assets/brand-signature.webp';
+
+const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Apipema+Center+-+R.+Prof.+Sabino+Silva,+836+-+LJ.+109+-+Ondina,+Salvador+-+BA,+40169-610";
+const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.362141528612!2d-38.51737!3d-13.01256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x71603957262c5b3%3A0x6b77ad74d2fa8c59!2sR.%20Prof.%20Sabino%20Silva%2C%20836%20-%20Ondina%2C%20Salvador%20-%20BA%2C%2040169-610!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr";
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <!-- Coluna 1: Brand & Links -->
+      <div class="footer__brand-col">
+        <a href="#hero" class="footer__logo">
+          <Image 
+            src={brandLogo} 
+            alt="Printt Cores" 
+            width={500}
+            quality="max"
+            class="footer__logo-img"
+          />
+        </a>
+        <p class="footer__tagline">
+          Estúdio de impressão digital e soluções gráficas personalizadas com alto padrão de qualidade e acabamentos finos.
+        </p>
+
+        <div class="footer__nav-rows">
+          <div class="footer__col">
+            <h4 class="footer__heading">Navegação</h4>
+            <a href="/servicos" class="footer__link">Serviços</a>
+            <a href="/produtos" class="footer__link">Produtos</a>
+            <a href="/portfolio" class="footer__link">Portfólio</a>
+            <a href="/sobre" class="footer__link">Sobre</a>
+          </div>
+
+          <div class="footer__col">
+            <h4 class="footer__heading">Redes Sociais</h4>
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="footer__link">Instagram</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer__link">LinkedIn</a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="footer__link">Facebook</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna 2: Mapa Personalizado em Estilo Dark -->
+      <div class="footer__map-col">
+        <h4 class="footer__heading">Nossa Localização</h4>
+        <div class="footer-map-card">
+          <iframe 
+            src={embedMapsUrl} 
+            class="footer-map-card__iframe"
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localização Printt Cores no Google Maps"
+          ></iframe>
+          
+          <div class="footer-map-card__overlay">
+            <div class="footer-map-card__address">
+              <span class="address-icon">📍</span>
+              <div>
+                <strong>Apipema Center</strong>
+                <p>R. Prof. Sabino Silva, 836 - LJ. 109<br />Ondina, Salvador - BA, 40169-610</p>
+              </div>
+            </div>
+            
+            <a 
+              href={mapsUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="footer-map-card__btn"
+              data-magnetic
+            >
+              <span>Abrir no Google Maps</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright & Créditos Criade -->
+    <div class="footer__bottom">
+      <p>
+        © {new Date().getFullYear()} Printt Cores. Criado e Desenvolvido por <a href="https://criade.art.br/" target="_blank" rel="noopener noreferrer" class="criade-link">Criade Comunicação e Design</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style lang="scss">
+  @use '../styles/abstracts/variables' as *;
+  @use '../styles/abstracts/mixins' as *;
+
+  .footer {
+    background: $color-dark;
+    color: rgba(255, 255, 255, 0.7);
+    padding: $space-xl 0 $space-md 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    &__grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: $space-xl;
+      margin-bottom: $space-xl;
+
+      @include respond-to(tablet) {
+        grid-template-columns: 1fr;
+        gap: $space-lg;
+      }
+    }
+
+    &__brand-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__logo {
+      display: inline-block;
+      margin-bottom: $space-sm;
+    }
+
+    &__logo-img {
+      height: 68px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.95;
+      transition: opacity 0.3s ease;
+
+      @include respond-to(mobile) {
+        height: 55px;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &__tagline {
+      font-size: $text-small;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 380px;
+      margin-bottom: $space-lg;
+    }
+
+    &__nav-rows {
+      display: flex;
+      gap: $space-xl;
+      margin-top: auto;
+
+      @include respond-to(mobile) {
+        gap: $space-lg;
+      }
+    }
+
+    &__col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    &__heading {
+      font-size: $text-xs;
+      font-weight: $weight-semibold;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: $space-xs;
+    }
+
+    &__link {
+      font-size: $text-small;
+      color: rgba(255, 255, 255, 0.65);
+      @include smooth-transition(color);
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+
+    // Mapa Estilizado
+    &__map-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__bottom {
+      padding-top: $space-md;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: $text-xs;
+      color: rgba(255, 255, 255, 0.45);
+      text-align: center;
+
+      .criade-link {
+        color: #ffffff;
+        font-weight: $weight-semibold;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: rgba($cmyk-magenta, 0.6);
+        @include smooth-transition(color);
+
+        &:hover {
+          color: $cmyk-magenta;
+        }
+      }
+    }
+  }
+
+  .footer-map-card {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: $shadow-md;
+
+    @include respond-to(mobile) {
+      height: 250px;
+    }
+
+    &__iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    &__overlay {
+      position: absolute;
+      bottom: $space-sm;
+      left: $space-sm;
+      right: $space-sm;
+      background: rgba($color-dark, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: $radius-md;
+      padding: $space-sm $space-md;
+      @include flex-between;
+      gap: $space-sm;
+
+      @include respond-to(mobile) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 0.75rem;
+      }
+    }
+
+    &__address {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+
+      .address-icon {
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+
+      strong {
+        font-size: $text-small;
+        color: #ffffff;
+        display: block;
+        line-height: 1.2;
+      }
+
+      p {
+        font-size: $text-xs;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.3;
+        margin-top: 0.15rem;
+      }
+    }
+
+    &__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: $radius-full;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-size: $text-xs;
+      font-weight: $weight-semibold;
+      white-space: nowrap;
+      @include smooth-transition(all);
+
+      &:hover {
+        background: $cmyk-magenta;
+        border-color: transparent;
+      }
+    }
+  }
+</style>

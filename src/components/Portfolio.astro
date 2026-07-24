@@ -1,0 +1,174 @@
+---
+import { Image } from 'astro:assets';
+import prodPkg from '../assets/prod-packaging.png';
+import heroComp from '../assets/hero-composition.png';
+import prodCards from '../assets/prod-cards.png';
+import prodBanner from '../assets/prod-banner.png';
+
+const portfolioItems = [
+  { title: "Lorem Ipsum Dolor Sit Amet", category: "Lorem / Ipsum", img: prodPkg },
+  { title: "Consectetur Adipiscing Elit", category: "Dolor / Sit", img: heroComp },
+  { title: "Sed Do Eiusmod Tempor", category: "Amet / Lorem", img: prodCards },
+  { title: "Ut Labore Et Dolore Magna", category: "Ipsum / Dolor", img: prodBanner },
+];
+---
+
+<section id="portfolio" class="portfolio">
+  <div class="container">
+    <div class="portfolio__header" data-animate>
+      <h2 class="section-title">Dolor sit amet <span class="text-gradient">consectetur</span></h2>
+    </div>
+
+    <div class="portfolio__grid">
+      {portfolioItems.map((item, i) => (
+        <div class={`portfolio-item portfolio-item--${i % 2 === 0 ? 'tall' : 'short'} js-port-item`}>
+          <div class="portfolio-item__inner">
+            <Image 
+              src={item.img} 
+              alt={item.title} 
+              width={700}
+              height={700}
+              class="portfolio-item__img"
+            />
+            <div class="portfolio-item__overlay">
+              <span class="portfolio-item__cat">{item.category}</span>
+              <h3 class="portfolio-item__title">{item.title}</h3>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from '../utils/gsap';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Parallax on desktop screens only
+    if (window.matchMedia('(min-width: 640px)').matches) {
+      document.querySelectorAll('.js-port-item').forEach((item, i) => {
+        gsap.fromTo(item, 
+          { y: 20 + (i % 2) * 15 },
+          {
+            y: -(20 + (i % 2) * 15),
+            scrollTrigger: {
+              trigger: item,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.5
+            }
+          }
+        );
+      });
+    }
+
+    // Stagger reveal on all screens
+    gsap.from('.js-port-item', {
+      scrollTrigger: { trigger: '.portfolio__grid', start: 'top 92%' },
+      opacity: 0,
+      y: 30,
+      stagger: 0.12,
+      duration: 0.8,
+      ease: 'power3.out',
+      clearProps: 'all'
+    });
+  });
+</script>
+
+<style lang="scss">
+  @use '../styles/abstracts/variables' as *;
+  @use '../styles/abstracts/mixins' as *;
+
+  .portfolio {
+    padding: $space-section 0;
+    background: $color-bg-alt;
+
+    &__header {
+      margin-bottom: $space-xl;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: $space-md;
+
+      @include respond-to(mobile) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  .portfolio-item {
+    overflow: hidden;
+
+    &--tall {
+      .portfolio-item__inner { height: 500px; }
+      @include respond-to(mobile) {
+        .portfolio-item__inner { height: 300px; }
+      }
+    }
+
+    &--short {
+      margin-top: $space-xl;
+      .portfolio-item__inner { height: 400px; }
+      @include respond-to(mobile) {
+        margin-top: 0;
+        .portfolio-item__inner { height: 300px; }
+      }
+    }
+
+    &__inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: $radius-lg;
+      overflow: hidden;
+    }
+
+    &__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $duration-slow $ease-out-expo;
+    }
+
+    &__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba($color-dark, 0.8) 0%, transparent 50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: $space-md;
+      opacity: 0;
+      @include smooth-transition(opacity);
+    }
+
+    &__cat {
+      font-family: $font-mono;
+      font-size: $text-xs;
+      font-weight: $weight-medium;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: $space-xs;
+    }
+
+    &__title {
+      font-size: $text-h3;
+      font-weight: $weight-semibold;
+      color: #fff;
+    }
+
+    &:hover {
+      .portfolio-item__img {
+        transform: scale(1.06);
+      }
+
+      .portfolio-item__overlay {
+        opacity: 1;
+      }
+    }
+  }
+</style>

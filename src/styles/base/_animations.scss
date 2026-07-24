@@ -1,0 +1,64 @@
+// ============================================
+// BASE / ANIMATIONS
+// Keyframes globais e classes GSAP helper
+// ============================================
+
+// Classes para GSAP SplitText fallback
+.char, .word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+// Scroll progress bar
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #e5007d 0%, #00a3e0 50%, #ffd100 100%);
+  z-index: 2000;
+  pointer-events: none;
+}
+
+// Cursor follower
+.cursor-follower {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid rgba(7, 21, 45, 0.25);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  mix-blend-mode: exclusion;
+
+  &--active {
+    width: 50px;
+    height: 50px;
+    border-color: rgba(229, 0, 125, 0.5);
+  }
+}
+
+// Reveal clip-path helpers
+.reveal-clip {
+  clip-path: inset(0 100% 0 0);
+  
+  &--visible {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+// Fade target (GSAP controlled)
+[data-animate] {
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char, .word, [data-animate] {
+    will-change: auto;
+  }
+}

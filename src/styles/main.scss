@@ -1,0 +1,25 @@
+// ============================================
+// MAIN.SCSS — Ponto de entrada 7-1
+// ============================================
+
+// 1. Abstracts (não geram CSS)
+// @use 'abstracts/functions';  // usado via @use nos parciais
+// @use 'abstracts/variables';  // usado via @use nos parciais
+// @use 'abstracts/mixins';     // usado via @use nos parciais
+
+// 2. Base
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/animations';
+
+// 3. Layout
+@use 'layout/container';
+@use 'layout/section';
+
+// 4. Components
+@use 'components/buttons';
+@use 'components/cards';
+
+// 5. Pages (vazio)
+// 6. Themes (vazio)
+// 7. Vendors (vazio)

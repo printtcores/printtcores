@@ -1,0 +1,147 @@
+---
+const etapas = [
+  {
+    step: "01",
+    title: "Lorem Ipsum Dolor",
+    desc: "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.",
+  },
+  {
+    step: "02",
+    title: "Sed Ut Perspiciatis",
+    desc: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia.",
+  },
+  {
+    step: "03",
+    title: "At Vero Eos Accusamus",
+    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.",
+  },
+  {
+    step: "04",
+    title: "Excepteur Sint Occaecat",
+    desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+  }
+];
+---
+
+<section id="processo" class="processo">
+  <div class="container">
+    <div class="processo__header" data-animate>
+      <h2 class="section-title">Dolor sit amet <span class="text-gradient">consectetur</span></h2>
+      <p class="section-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+    </div>
+
+    <div class="processo__steps">
+      {etapas.map((item) => (
+        <div class="step js-step" data-animate>
+          <div class="step__number">{item.step}</div>
+          <div class="step__content">
+            <h3 class="step__title">{item.title}</h3>
+            <p class="step__desc">{item.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from '../utils/gsap';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    gsap.from('.processo .section-title, .processo .section-desc', {
+      scrollTrigger: { trigger: '.processo', start: 'top 85%' },
+      opacity: 0,
+      y: 25,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: 'power3.out',
+      clearProps: 'all'
+    });
+
+    gsap.from('.js-step', {
+      scrollTrigger: { trigger: '.processo__steps', start: 'top 92%' },
+      opacity: 0,
+      y: 30,
+      stagger: 0.12,
+      duration: 0.8,
+      ease: 'power3.out',
+      clearProps: 'all'
+    });
+  });
+</script>
+
+<style lang="scss">
+  @use '../styles/abstracts/variables' as *;
+  @use '../styles/abstracts/mixins' as *;
+
+  .processo {
+    padding: $space-section 0;
+    background: $color-bg;
+
+    &__header {
+      margin-bottom: $space-xl;
+      max-width: 600px;
+    }
+
+    &__steps {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .step {
+    display: flex;
+    gap: $space-lg;
+    padding: $space-lg 0;
+    border-bottom: 1px solid rgba($color-dark, 0.08);
+    @include smooth-transition(all);
+
+    @include respond-to(mobile) {
+      gap: $space-md;
+    }
+
+    &:first-child {
+      border-top: 1px solid rgba($color-dark, 0.08);
+    }
+
+    &:hover {
+      padding-left: $space-sm;
+
+      .step__number {
+        color: $cmyk-magenta;
+      }
+    }
+
+    &__number {
+      font-family: $font-mono;
+      font-size: $text-display;
+      font-weight: $weight-light;
+      line-height: 1;
+      color: rgba($color-dark, 0.08);
+      min-width: 120px;
+      @include smooth-transition(color);
+
+      @include respond-to(mobile) {
+        font-size: $text-h1;
+        min-width: 60px;
+      }
+    }
+
+    &__content {
+      flex: 1;
+      padding-top: $space-sm;
+    }
+
+    &__title {
+      font-size: $text-h3;
+      font-weight: $weight-semibold;
+      margin-bottom: $space-xs;
+      letter-spacing: -0.02em;
+    }
+
+    &__desc {
+      @include body-text($text-small);
+      max-width: 450px;
+    }
+  }
+</style>

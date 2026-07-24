@@ -1,0 +1,51 @@
+// ============================================
+// LAYOUT / SECTION
+// Estilos base para seções (tag, título, desc)
+// ============================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+section[id] {
+  scroll-margin-top: 100px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: $radius-full;
+  font-family: $font-mono;
+  font-size: $text-xs;
+  font-weight: $weight-semibold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $cmyk-magenta;
+  background: rgba($cmyk-magenta, 0.06);
+  border: 1px solid rgba($cmyk-magenta, 0.16);
+  margin-bottom: $space-sm;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $cmyk-magenta;
+    box-shadow: 0 0 8px rgba($cmyk-magenta, 0.6);
+  }
+}
+
+.section-title {
+  @include heading($text-h2);
+  margin-bottom: $space-sm;
+}
+
+.section-desc {
+  @include body-text(1.1rem);
+  max-width: 560px;
+}
+
+.text-gradient {
+  @include gradient-text;
+}

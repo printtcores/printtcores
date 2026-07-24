@@ -1,0 +1,66 @@
+// ============================================
+// ABSTRACTS / MIXINS
+// ============================================
+@use 'variables' as *;
+
+// --- Responsivo ---
+@mixin respond-to($bp) {
+  @if $bp == mobile {
+    @media (max-width: $bp-mobile) { @content; }
+  } @else if $bp == tablet {
+    @media (max-width: $bp-tablet) { @content; }
+  } @else if $bp == desktop {
+    @media (min-width: $bp-desktop) { @content; }
+  }
+}
+
+// --- Layout ---
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// --- Tipografia ---
+@mixin heading($size, $weight: $weight-bold) {
+  font-family: $font-sans;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: $color-text;
+}
+
+@mixin body-text($size: $text-body) {
+  font-family: $font-sans;
+  font-size: $size;
+  font-weight: $weight-regular;
+  line-height: 1.6;
+  color: $color-text-secondary;
+}
+
+// --- Gradiente no texto ---
+@mixin gradient-text($gradient: $gradient-cmyk) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// --- Transição suave ---
+@mixin smooth-transition($props: all) {
+  transition: $props $duration-normal $ease-out-expo;
+}
+
+// --- Hover lift ---
+@mixin hover-lift($distance: -4px) {
+  &:hover {
+    transform: translateY($distance);
+  }
+}

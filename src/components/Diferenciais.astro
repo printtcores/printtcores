@@ -1,0 +1,157 @@
+---
+const diferenciais = [
+  {
+    num: "01",
+    title: "Lorem Ipsum Dolor",
+    desc: "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    num: "02",
+    title: "Sed Ut Perspiciatis",
+    desc: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.",
+  },
+  {
+    num: "03",
+    title: "At Vero Eos Accusamus",
+    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    num: "04",
+    title: "Excepteur Sint Occaecat",
+    desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+  }
+];
+---
+
+<section id="diferenciais" class="diferenciais">
+  <div class="container">
+    <div class="diferenciais__layout">
+      <div class="diferenciais__left" data-animate>
+        <h2 class="section-title">Dolor sit amet<br />consectetur <span class="text-gradient">adipiscing</span></h2>
+        <p class="section-desc">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+      </div>
+
+      <div class="diferenciais__right">
+        {diferenciais.map((item) => (
+          <div class="dif-item js-dif-item" data-animate>
+            <span class="dif-item__num">{item.num}</span>
+            <div class="dif-item__content">
+              <h3 class="dif-item__title">{item.title}</h3>
+              <p class="dif-item__desc">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from '../utils/gsap';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Left side
+    gsap.from('.diferenciais__left > *', {
+      scrollTrigger: { trigger: '.diferenciais', start: 'top 85%' },
+      opacity: 0,
+      y: 25,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: 'power3.out',
+      clearProps: 'all'
+    });
+
+    // Right items stagger
+    gsap.from('.js-dif-item', {
+      scrollTrigger: { trigger: '.diferenciais__right', start: 'top 92%' },
+      opacity: 0,
+      y: 30,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: 'power3.out',
+      clearProps: 'all'
+    });
+  });
+</script>
+
+<style lang="scss">
+  @use '../styles/abstracts/variables' as *;
+  @use '../styles/abstracts/mixins' as *;
+
+  .diferenciais {
+    padding: $space-section 0;
+    background: $color-bg;
+
+    &__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: $space-xl;
+      align-items: start;
+
+      @include respond-to(tablet) {
+        grid-template-columns: 1fr;
+        gap: $space-lg;
+      }
+    }
+
+    &__left {
+      position: sticky;
+      top: 120px;
+
+      @include respond-to(tablet) {
+        position: static;
+      }
+    }
+
+    &__right {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .dif-item {
+    display: flex;
+    gap: $space-md;
+    padding: $space-lg 0;
+    border-bottom: 1px solid rgba($color-dark, 0.08);
+    @include smooth-transition(all);
+
+    &:first-child {
+      border-top: 1px solid rgba($color-dark, 0.08);
+    }
+
+    &:hover {
+      padding-left: $space-sm;
+
+      .dif-item__num {
+        color: $cmyk-magenta;
+      }
+    }
+
+    &__num {
+      font-family: $font-mono;
+      font-size: $text-h2;
+      font-weight: $weight-light;
+      color: $color-text-muted;
+      line-height: 1;
+      min-width: 60px;
+      @include smooth-transition(color);
+    }
+
+    &__content {
+      flex: 1;
+    }
+
+    &__title {
+      font-size: $text-h3;
+      font-weight: $weight-semibold;
+      margin-bottom: $space-xs;
+      letter-spacing: -0.02em;
+    }
+
+    &__desc {
+      @include body-text($text-small);
+      max-width: 400px;
+    }
+  }
+</style>
