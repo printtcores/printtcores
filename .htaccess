@@ -1,0 +1,22 @@
+# Hostinger Apache / Astro Routing & Security .htaccess
+DirectoryIndex index.html dist/index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Allow direct access to existing files & directories
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Fallback for Astro pages
+  RewriteRule ^servicos/?$ /servicos/index.html [L]
+  RewriteRule ^produtos/?$ /produtos/index.html [L]
+  RewriteRule ^portfolio/?$ /portfolio/index.html [L]
+  RewriteRule ^sobre/?$ /sobre/index.html [L]
+  RewriteRule ^contato/?$ /contato/index.html [L]
+</IfModule>
+
+# Disable directory browsing to prevent 403 listing errors
+Options -Indexes
