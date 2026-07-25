@@ -5,12 +5,12 @@
   <div class="container hero__container">
     <div class="hero__content">
       <h1 class="hero__title js-split-title">
-        Lorem ipsum<br />
-        dolor sit <em>amet</em>
+        Impressão Gráfica<br />
+        Premium em <em>Salvador</em>
       </h1>
 
       <p class="hero__desc js-hero-fade">
-        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+        Soluções personalizadas em canecas, porta-retratos, presentes e comunicação visual com altíssima definição e entrega rápida no Apipema Center.
       </p>
 
       <div class="hero__cta js-hero-fade">
@@ -19,6 +19,7 @@
           target="_blank" 
           rel="noopener noreferrer"
           class="btn btn--whatsapp" 
+          aria-label="Falar com a Printt Cores no WhatsApp"
           data-magnetic
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -30,6 +31,12 @@
         <a href="#servicos" class="btn btn--outline" data-magnetic>
           <span>Ver Serviços</span>
         </a>
+      </div>
+
+      <!-- Prova Social (CRO) -->
+      <div class="hero__trust js-hero-fade">
+        <div class="hero__stars">★★★★★</div>
+        <p><strong>+5.000 projetos entregues</strong> com excelência no Apipema Center</p>
       </div>
     </div>
   </div>
@@ -129,6 +136,32 @@
     &__cta {
       display: flex;
       gap: $space-sm;
+    }
+
+    &__trust {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: $space-lg;
+      padding-top: $space-md;
+      border-top: 1px solid rgba($color-dark, 0.08);
+
+      p {
+        font-size: $text-small;
+        color: $color-text-secondary;
+        margin: 0;
+
+        strong {
+          color: $color-dark;
+          font-weight: $weight-semibold;
+        }
+      }
+    }
+
+    &__stars {
+      color: #ffb800;
+      letter-spacing: 2px;
+      font-size: 1rem;
     }
 
     &__line {
