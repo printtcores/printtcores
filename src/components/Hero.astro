@@ -150,19 +150,27 @@
       em {
         font-style: italic;
         display: inline-block;
+        color: $cmyk-magenta;
         background: linear-gradient(135deg, $cmyk-magenta 0%, $cmyk-orange 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        color: transparent;
 
-        :global(.word), :global(.char) {
+        :global(.word) {
+          display: inline-block;
+          background: none;
+          -webkit-background-clip: initial;
+          -webkit-text-fill-color: initial;
+          color: inherit;
+        }
+
+        :global(.char) {
+          display: inline-block;
           background: linear-gradient(135deg, $cmyk-magenta 0%, $cmyk-orange 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
           color: transparent;
-          display: inline-block;
         }
       }
     }
