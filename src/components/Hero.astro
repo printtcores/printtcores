@@ -2,11 +2,15 @@
 ---
 
 <section id="hero" class="hero">
+  <!-- Container de partículas flutuantes CMYK animadas via Anime.js -->
+  <div class="hero__particles js-cmyk-particles"></div>
+
   <div class="container hero__container">
     <div class="hero__content">
       <h1 class="hero__title js-split-title">
         Impressão Gráfica<br />
-        Premium em <em>Salvador</em>
+        Premium em<br />
+        <em>Salvador</em>
       </h1>
 
       <p class="hero__desc js-hero-fade">
@@ -35,7 +39,7 @@
 
       <!-- Prova Social (CRO) -->
       <div class="hero__trust js-hero-fade">
-        <div class="hero__stars">★★★★★</div>
+        <div class="hero__stars js-hero-stars">★★★★★</div>
         <p><strong>+5.000 projetos entregues</strong> com excelência no Apipema Center</p>
       </div>
     </div>
@@ -46,8 +50,21 @@
 
 <script>
   import { gsap, splitTextFallback } from '../utils/gsap';
+  import { initCmykParticles, pulseIcon } from '../utils/animeAnimations';
 
   document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar partículas animadas via Anime.js
+    const particlesContainer = document.querySelector<HTMLElement>('.js-cmyk-particles');
+    if (particlesContainer) {
+      initCmykParticles(particlesContainer);
+    }
+
+    // Animação de pulso nas estrelas de prova social via Anime.js
+    const starsEl = document.querySelector('.js-hero-stars');
+    if (starsEl) {
+      starsEl.addEventListener('mouseenter', () => pulseIcon(starsEl));
+    }
+
     // Title character reveal
     const titleEl = document.querySelector<HTMLElement>('.js-split-title');
     if (titleEl) {
@@ -103,6 +120,15 @@
     padding-top: 8rem;
     padding-bottom: $space-2xl;
     background: $color-bg;
+    overflow: hidden;
+
+    &__particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
 
     &__container {
       position: relative;
@@ -116,14 +142,28 @@
     &__title {
       font-size: $text-display;
       font-weight: $weight-black;
-      line-height: 0.95;
+      line-height: 1.35;
       letter-spacing: -0.04em;
       color: $color-text;
       margin-bottom: $space-md;
 
       em {
         font-style: italic;
-        @include gradient-text(linear-gradient(135deg, $cmyk-magenta 0%, $cmyk-orange 100%));
+        display: inline-block;
+        background: linear-gradient(135deg, $cmyk-magenta 0%, $cmyk-orange 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+
+        :global(.word), :global(.char) {
+          background: linear-gradient(135deg, $cmyk-magenta 0%, $cmyk-orange 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: transparent;
+          display: inline-block;
+        }
       }
     }
 

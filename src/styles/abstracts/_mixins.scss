@@ -54,8 +54,16 @@
 }
 
 // --- Transição suave ---
-@mixin smooth-transition($props: all) {
-  transition: $props $duration-normal $ease-out-expo;
+@mixin smooth-transition($props...) {
+  @if length($props) == 0 {
+    transition: all $duration-normal $ease-out-expo;
+  } @else {
+    $transitions: ();
+    @each $prop in $props {
+      $transitions: append($transitions, $prop $duration-normal $ease-out-expo, comma);
+    }
+    transition: $transitions;
+  }
 }
 
 // --- Hover lift ---

@@ -47,7 +47,8 @@ const diferenciais = [
 </section>
 
 <script>
-  import { gsap, ScrollTrigger } from '../utils/gsap';
+  import { gsap } from '../utils/gsap';
+  import { animate, stagger } from 'animejs';
 
   document.addEventListener('DOMContentLoaded', () => {
     // Left side
@@ -71,6 +72,29 @@ const diferenciais = [
       ease: 'power3.out',
       clearProps: 'all'
     });
+
+    // Anime.js v4 elastic scale nos números da seção Diferenciais
+    const numEls = document.querySelectorAll('.dif-item__num');
+    if (numEls.length > 0 && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animate(numEls, {
+              scale: [0.4, 1],
+              opacity: [0, 1],
+              translateY: [15, 0],
+              delay: stagger(140),
+              duration: 950,
+              ease: 'outElastic(1, 0.6)'
+            });
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.2 });
+
+      const section = document.querySelector('.diferenciais');
+      if (section) observer.observe(section);
+    }
   });
 </script>
 

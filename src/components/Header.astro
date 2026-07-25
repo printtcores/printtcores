@@ -168,15 +168,16 @@ import brandLogo from '../assets/brand-signature.webp';
   }
 
   .nav__link {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.1rem;
     font-size: $text-small;
     font-weight: $weight-medium;
     color: $color-text-secondary;
     border-radius: $radius-full;
-    @include smooth-transition(color);
+    @include smooth-transition(color, background-color);
 
     &:hover {
-      color: $color-text;
+      color: $color-dark;
+      background-color: rgba($color-dark, 0.05);
     }
   }
 </style>

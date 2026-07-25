@@ -42,7 +42,8 @@ const portfolioItems = [
 </section>
 
 <script>
-  import { gsap, ScrollTrigger } from '../utils/gsap';
+  import { gsap } from '../utils/gsap';
+  import { animate } from 'animejs';
 
   document.addEventListener('DOMContentLoaded', () => {
     // Parallax on desktop screens only
@@ -72,6 +73,21 @@ const portfolioItems = [
       duration: 0.8,
       ease: 'power3.out',
       clearProps: 'all'
+    });
+
+    // Anime.js v4 hover reveal para as categorias do portfólio
+    document.querySelectorAll('.js-port-item').forEach((item) => {
+      const catTag = item.querySelector('.portfolio-item__cat');
+      if (catTag) {
+        item.addEventListener('mouseenter', () => {
+          animate(catTag, {
+            translateX: [-12, 0],
+            opacity: [0.5, 1],
+            duration: 400,
+            ease: 'outExpo'
+          });
+        });
+      }
     });
   });
 </script>

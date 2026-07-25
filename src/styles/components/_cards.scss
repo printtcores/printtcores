@@ -1,6 +1,6 @@
 // ============================================
 // COMPONENTS / CARDS
-// Estilos base de card (sem glass-panel genérico)
+// Estilos de card premium, glassmorphism e iluminação CMYK
 // ============================================
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
@@ -8,7 +8,9 @@
 .card {
   border-radius: $radius-lg;
   overflow: hidden;
-  @include smooth-transition(box-shadow);
+  background: #ffffff;
+  border: 1px solid rgba($color-dark, 0.06);
+  @include smooth-transition(box-shadow, transform, border-color);
 
   &--bordered {
     border: 1px solid rgba($color-dark, 0.08);
@@ -19,7 +21,16 @@
 
     &:hover {
       box-shadow: $shadow-lg;
+      transform: translateY(-4px);
     }
+  }
+
+  &--glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 30px rgba(7, 21, 45, 0.05);
   }
 
   &__image {
@@ -36,7 +47,7 @@
   }
 
   &:hover &__image img {
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
 
   &__body {

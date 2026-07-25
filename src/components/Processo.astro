@@ -45,7 +45,8 @@ const etapas = [
 </section>
 
 <script>
-  import { gsap, ScrollTrigger } from '../utils/gsap';
+  import { gsap } from '../utils/gsap';
+  import { animate, stagger } from 'animejs';
 
   document.addEventListener('DOMContentLoaded', () => {
     gsap.from('.processo .section-title, .processo .section-desc', {
@@ -67,6 +68,28 @@ const etapas = [
       ease: 'power3.out',
       clearProps: 'all'
     });
+
+    // Anime.js v4 onda sequencial nos números das etapas
+    const stepNumbers = document.querySelectorAll('.step__number');
+    if (stepNumbers.length > 0 && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animate(stepNumbers, {
+              scale: [1, 1.25, 1],
+              color: ['#07152d', '#e5007d', '#07152d'],
+              delay: stagger(180, { start: 300 }),
+              duration: 750,
+              ease: 'inOutQuad'
+            });
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      const stepsContainer = document.querySelector('.processo__steps');
+      if (stepsContainer) observer.observe(stepsContainer);
+    }
   });
 </script>
 

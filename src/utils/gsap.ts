@@ -8,40 +8,54 @@ if (typeof window !== 'undefined') {
 
 /**
  * Função utilitária para dividir texto em caracteres e palavras.
- * Se o SplitText oficial do GSAP Club não estiver instalado no projeto, 
- * esta função oferece um fallback nativo com a mesma estrutura de classes (.char, .word).
+ * Preserva elementos HTML como <br /> e <em> para evitar que as palavras fiquem coladas.
  */
 export function splitTextFallback(element: HTMLElement): { chars: HTMLElement[]; words: HTMLElement[] } {
-  const text = element.innerText;
-  element.innerHTML = '';
-  
-  const words: HTMLElement[] = [];
   const chars: HTMLElement[] = [];
+  const words: HTMLElement[] = [];
 
-  const wordStrings = text.split(' ');
-  wordStrings.forEach((wordStr, wordIndex) => {
-    const wordSpan = document.createElement('span');
-    wordSpan.className = 'word';
-    wordSpan.style.display = 'inline-block';
-    wordSpan.style.whiteSpace = 'nowrap';
+  function processNode(node: Node, container: HTMLElement) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent || '';
+      // Separar por sequências de espaços sem perder a informação do espaço
+      const parts = text.split(/(\s+)/);
+      parts.forEach((part) => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) {
+          container.appendChild(document.createTextNode(' '));
+        } else {
+          const wordSpan = document.createElement('span');
+          wordSpan.className = 'word';
+          wordSpan.style.display = 'inline-block';
 
-    Array.from(wordStr).forEach((char) => {
-      const charSpan = document.createElement('span');
-      charSpan.className = 'char';
-      charSpan.style.display = 'inline-block';
-      charSpan.textContent = char;
-      wordSpan.appendChild(charSpan);
-      chars.push(charSpan);
-    });
+          Array.from(part).forEach((char) => {
+            const charSpan = document.createElement('span');
+            charSpan.className = 'char';
+            charSpan.style.display = 'inline-block';
+            charSpan.textContent = char;
+            wordSpan.appendChild(charSpan);
+            chars.push(charSpan);
+          });
 
-    element.appendChild(wordSpan);
-    words.push(wordSpan);
-
-    if (wordIndex < wordStrings.length - 1) {
-      const space = document.createTextNode(' ');
-      element.appendChild(space);
+          container.appendChild(wordSpan);
+          words.push(wordSpan);
+        }
+      });
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      const el = node as HTMLElement;
+      if (el.tagName.toLowerCase() === 'br') {
+        container.appendChild(document.createElement('br'));
+      } else {
+        const cloneEl = el.cloneNode(false) as HTMLElement;
+        container.appendChild(cloneEl);
+        Array.from(el.childNodes).forEach((child) => processNode(child, cloneEl));
+      }
     }
-  });
+  }
+
+  const originalChildren = Array.from(element.childNodes);
+  element.innerHTML = '';
+  originalChildren.forEach((child) => processNode(child, element));
 
   return { chars, words };
 }

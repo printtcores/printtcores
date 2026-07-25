@@ -70,7 +70,8 @@ const servicos = [
 </section>
 
 <script>
-  import { gsap, ScrollTrigger } from '../utils/gsap';
+  import { gsap } from '../utils/gsap';
+  import { animateCardBounce } from '../utils/animeAnimations';
 
   document.addEventListener('DOMContentLoaded', () => {
     // Header reveal
@@ -96,6 +97,11 @@ const servicos = [
       duration: 0.8,
       ease: 'power3.out',
       clearProps: 'all'
+    });
+
+    // Anime.js hover bounce nos cards de serviços
+    document.querySelectorAll('.js-servico-card').forEach((card) => {
+      card.addEventListener('mouseenter', () => animateCardBounce(card));
     });
 
     // Interactive 3D Tilt effect on mousemove (desktop fine pointer only)
@@ -171,8 +177,8 @@ const servicos = [
     @include smooth-transition(all);
 
     &:hover {
-      border-color: rgba($color-dark, 0.18);
-      box-shadow: $shadow-lg;
+      border-color: var(--card-accent);
+      box-shadow: 0 16px 40px rgba(7, 21, 45, 0.09);
 
       .servico-card__img {
         transform: scale(1.08);
@@ -182,7 +188,7 @@ const servicos = [
         color: var(--card-accent);
 
         svg {
-          transform: translateX(4px);
+          transform: translateX(6px);
         }
       }
     }
