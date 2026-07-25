@@ -10,9 +10,32 @@ interface Props {
 }
 
 const { 
-  title = "Printt Cores — Gráfica & Estúdio de Impressão", 
-  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." 
+  title = "Printt Cores | Gráfica & Estúdio de Impressão Premium em Salvador", 
+  description = "Estúdio de impressão digital e soluções gráficas personalizadas no Apipema Center, Ondina, Salvador - BA. Canecas personalizadas, porta-retratos, presentes e comunicação visual." 
 } = Astro.props;
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "PrintShop",
+  "name": "Printt Cores",
+  "url": "https://printtcores.com.br",
+  "description": description,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "R. Prof. Sabino Silva, 836 - LJ. 109, Apipema Center",
+    "addressLocality": "Ondina, Salvador",
+    "addressRegion": "BA",
+    "postalCode": "40169-610",
+    "addressCountry": "BR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -13.01256,
+    "longitude": -38.51737
+  },
+  "telephone": "+5500000000000",
+  "priceRange": "$$"
+};
 ---
 
 <!doctype html>
@@ -24,6 +47,15 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    <!-- Open Graph / Meta Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="pt_BR" />
+    
+    <!-- Microdados JSON-LD Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
     
     <!-- Geist Sans & Mono (Vercel) -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -46,7 +78,7 @@ const {
     <!-- Botão Flutuante do WhatsApp -->
     <WhatsAppFloat />
 
-    <!-- Global GSAP: cursor follower + scroll progress -->
+    <!-- Global GSAP + Scroll Progress + IntersectionObserver para Hash URL -->
     <script>
       import { gsap } from '../utils/gsap';
 
@@ -54,7 +86,7 @@ const {
         const cursor = document.querySelector<HTMLElement>('.js-cursor');
         const progressBar = document.querySelector<HTMLElement>('.js-scroll-progress');
 
-        // Cursor follower
+        // Cursor follower (apenas em dispositivos com mouse)
         if (cursor && window.matchMedia('(pointer: fine)').matches) {
           document.addEventListener('mousemove', (e) => {
             gsap.to(cursor, {
@@ -65,7 +97,6 @@ const {
             });
           });
 
-          // Escalar cursor nos links e botões
           const interactives = document.querySelectorAll('a, button, [data-magnetic]');
           interactives.forEach((el) => {
             el.addEventListener('mouseenter', () => cursor.classList.add('cursor-follower--active'));
@@ -84,6 +115,32 @@ const {
             progressBar.style.width = scrolled + '%';
           }
         });
+
+        // IntersectionObserver para atualizar a URL com o hash da seção ativa (ex: /#servicos)
+        const sections = document.querySelectorAll<HTMLElement>('section[id]');
+        if (sections.length > 0 && 'IntersectionObserver' in window) {
+          const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+          };
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                if (id) {
+                  const newHash = `#${id}`;
+                  if (window.location.hash !== newHash) {
+                    history.replaceState(null, '', newHash);
+                  }
+                }
+              }
+            });
+          }, observerOptions);
+
+          sections.forEach((sec) => observer.observe(sec));
+        }
       });
     </script>
   </body>

@@ -17,11 +17,11 @@ import brandLogo from '../assets/brand-signature.webp';
     </a>
 
     <nav class="header__nav">
-      <a href="/servicos" class="nav__link js-nav-link">Serviços</a>
-      <a href="/produtos" class="nav__link js-nav-link">Produtos</a>
-      <a href="/portfolio" class="nav__link js-nav-link">Portfólio</a>
-      <a href="/sobre" class="nav__link js-nav-link">Sobre</a>
-      <a href="/contato" class="nav__link js-nav-link">Contato</a>
+      <a href="#servicos" class="nav__link js-nav-link">Serviços</a>
+      <a href="#produtos" class="nav__link js-nav-link">Produtos</a>
+      <a href="#portfolio" class="nav__link js-nav-link">Portfólio</a>
+      <a href="#processo" class="nav__link js-nav-link">Sobre</a>
+      <a href="#contato" class="nav__link js-nav-link">Contato</a>
     </nav>
 
     <div class="header__action">
@@ -57,21 +57,19 @@ import brandLogo from '../assets/brand-signature.webp';
       }
     });
 
-    // Smooth scroll with header offset when on home page
+    // Smooth scroll with header offset
     navLinks.forEach((link) => {
       link.addEventListener('click', (e) => {
         const href = link.getAttribute('href');
-        if (!href) return;
-
-        const sectionId = href.replace('/', '').replace('#', '');
-        const targetSection = document.getElementById(sectionId);
-
-        if (targetSection && (window.location.pathname === '/' || window.location.pathname === '')) {
+        if (href && href.startsWith('#')) {
           e.preventDefault();
-          const offset = 90;
-          const pos = targetSection.getBoundingClientRect().top + window.pageYOffset - offset;
-          window.scrollTo({ top: pos, behavior: 'smooth' });
-          history.pushState(null, '', `/#${sectionId}`);
+          const targetSection = document.querySelector(href);
+          if (targetSection) {
+            const offset = 90;
+            const pos = targetSection.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top: pos, behavior: 'smooth' });
+            history.pushState(null, '', href);
+          }
         }
       });
     });
