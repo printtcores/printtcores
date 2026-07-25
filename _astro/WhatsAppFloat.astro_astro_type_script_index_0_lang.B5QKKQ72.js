@@ -1,1 +1,0 @@
-import{g as a}from"./gsap.Dh67GIhF.js";document.addEventListener("DOMContentLoaded",()=>{a.from(".js-whatsapp-float",{scale:0,opacity:0,duration:.8,delay:1.2,ease:"back.out(1.7)",clearProps:"all"})});
