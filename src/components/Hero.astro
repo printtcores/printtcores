@@ -1,4 +1,5 @@
 ---
+import { SITE_CONFIG } from '../config/site';
 ---
 
 <section id="hero" class="hero">
@@ -9,17 +10,16 @@
     <div class="hero__content">
       <h1 class="hero__title js-split-title">
         Impressão Gráfica<br />
-        Premium em<br />
-        <em>Salvador</em>
+        em <em>Salvador</em>
       </h1>
 
       <p class="hero__desc js-hero-fade">
-        Soluções personalizadas em canecas, porta-retratos, presentes e comunicação visual com altíssima definição e entrega rápida no Apipema Center.
+        Soluções personalizadas em canecas, porta-retratos, presentes e comunicação visual com altíssima definição e entrega rápida em Ondina.
       </p>
 
       <div class="hero__cta js-hero-fade">
         <a 
-          href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento." 
+          href={SITE_CONFIG.whatsappLink} 
           target="_blank" 
           rel="noopener noreferrer"
           class="btn btn--whatsapp" 
@@ -36,12 +36,6 @@
           <span>Ver Serviços</span>
         </a>
       </div>
-
-      <!-- Prova Social (CRO) -->
-      <div class="hero__trust js-hero-fade">
-        <div class="hero__stars js-hero-stars">★★★★★</div>
-        <p><strong>+5.000 projetos entregues</strong> com excelência no Apipema Center</p>
-      </div>
     </div>
   </div>
 
@@ -50,19 +44,13 @@
 
 <script>
   import { gsap, splitTextFallback } from '../utils/gsap';
-  import { initCmykParticles, pulseIcon } from '../utils/animeAnimations';
+  import { initCmykParticles } from '../utils/animeAnimations';
 
   document.addEventListener('DOMContentLoaded', () => {
     // Inicializar partículas animadas via Anime.js
     const particlesContainer = document.querySelector<HTMLElement>('.js-cmyk-particles');
     if (particlesContainer) {
       initCmykParticles(particlesContainer);
-    }
-
-    // Animação de pulso nas estrelas de prova social via Anime.js
-    const starsEl = document.querySelector('.js-hero-stars');
-    if (starsEl) {
-      starsEl.addEventListener('mouseenter', () => pulseIcon(starsEl));
     }
 
     // Title character reveal
@@ -155,6 +143,8 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        padding-right: 0.15em;
+        overflow: visible;
 
         :global(.word) {
           display: inline-block;
@@ -162,6 +152,7 @@
           -webkit-background-clip: initial;
           -webkit-text-fill-color: initial;
           color: inherit;
+          overflow: visible;
         }
 
         :global(.char) {
@@ -171,6 +162,10 @@
           -webkit-text-fill-color: transparent;
           background-clip: text;
           color: transparent;
+          padding: 0 0.08em;
+          margin: 0 -0.08em;
+          overflow: visible;
+          vertical-align: top;
         }
       }
     }

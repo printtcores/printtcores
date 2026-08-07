@@ -1,4 +1,5 @@
 ---
+import { SITE_CONFIG } from '../config/site';
 ---
 
 <section id="contato" class="contato">
@@ -19,7 +20,7 @@
         <h3 class="contato-card__title">Atendimento Rápido</h3>
         <p class="contato-card__desc">Solicite seu orçamento instantâneo ou tire dúvidas via WhatsApp.</p>
         <a 
-          href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento." 
+          href={SITE_CONFIG.whatsappLink} 
           target="_blank" 
           rel="noopener noreferrer"
           class="btn btn--whatsapp" 
@@ -38,13 +39,17 @@
           </svg>
         </div>
         <h3 class="contato-card__title">Telefone & E-mail</h3>
-        <p class="contato-card__value">(00) 1234-5678</p>
-        <p class="contato-card__value">contato@printtcores.com.br</p>
+        <p class="contato-card__value">
+          <a href={SITE_CONFIG.telLink}>{SITE_CONFIG.contact.phone}</a>
+        </p>
+        <p class="contato-card__value">
+          <a href={`mailto:${SITE_CONFIG.contact.email}`}>{SITE_CONFIG.contact.email}</a>
+        </p>
       </div>
 
       <!-- Endereço -->
       <a 
-        href="https://www.google.com/maps/search/?api=1&query=Apipema+Center+-+R.+Prof.+Sabino+Silva,+836+-+LJ.+109+-+Ondina,+Salvador+-+BA,+40169-610" 
+        href={SITE_CONFIG.address.mapsUrl} 
         target="_blank" 
         rel="noopener noreferrer" 
         class="contato-card js-contato-card"
@@ -57,8 +62,12 @@
           </svg>
         </div>
         <h3 class="contato-card__title">Nosso Estúdio</h3>
-        <p class="contato-card__value">Apipema Center</p>
-        <p class="contato-card__desc">R. Prof. Sabino Silva, 836 - LJ. 109<br />Ondina, Salvador - BA</p>
+        <p class="contato-card__value">{SITE_CONFIG.address.shopping}</p>
+        <p class="contato-card__desc">
+          {SITE_CONFIG.address.street}<br />
+          {SITE_CONFIG.address.bairro}, {SITE_CONFIG.address.city} - {SITE_CONFIG.address.state}<br />
+          <strong>CEP {SITE_CONFIG.address.cep}</strong>
+        </p>
       </a>
     </div>
   </div>

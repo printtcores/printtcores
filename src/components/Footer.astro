@@ -1,8 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import brandLogo from '../assets/brand-signature.webp';
+import { SITE_CONFIG } from '../config/site';
 
-const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Apipema+Center+-+R.+Prof.+Sabino+Silva,+836+-+LJ.+109+-+Ondina,+Salvador+-+BA,+40169-610";
 const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.362141528612!2d-38.51737!3d-13.01256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x71603957262c5b3%3A0x6b77ad74d2fa8c59!2sR.%20Prof.%20Sabino%20Silva%2C%20836%20-%20Ondina%2C%20Salvador%20-%20BA%2C%2040169-610!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr";
 ---
 
@@ -21,7 +21,7 @@ const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887
           />
         </a>
         <p class="footer__tagline">
-          Estúdio de impressão digital e soluções gráficas personalizadas com alto padrão de qualidade e acabamentos finos.
+          {SITE_CONFIG.tagline}
         </p>
 
         <div class="footer__nav-rows">
@@ -30,14 +30,15 @@ const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887
             <a href="#servicos" class="footer__link">Serviços</a>
             <a href="#produtos" class="footer__link">Produtos</a>
             <a href="#portfolio" class="footer__link">Portfólio</a>
-            <a href="#processo" class="footer__link">Sobre</a>
+            <a href="#diferenciais" class="footer__link">Diferenciais</a>
+            <a href="#contato" class="footer__link">Contato</a>
           </div>
 
           <div class="footer__col">
             <h4 class="footer__heading">Redes Sociais</h4>
-            <a href="https://instagram.com" target="_blank" rel="noopener" class="footer__link">Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer__link">LinkedIn</a>
-            <a href="https://facebook.com" target="_blank" rel="noopener" class="footer__link">Facebook</a>
+            <a href={SITE_CONFIG.social.instagram} target="_blank" rel="noopener" class="footer__link">Instagram</a>
+            <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener" class="footer__link">LinkedIn</a>
+            <a href={SITE_CONFIG.social.facebook} target="_blank" rel="noopener" class="footer__link">Facebook</a>
           </div>
         </div>
       </div>
@@ -62,13 +63,16 @@ const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887
             <div class="footer-map-card__address">
               <span class="address-icon">📍</span>
               <div>
-                <strong>Apipema Center</strong>
-                <p>R. Prof. Sabino Silva, 836 - LJ. 109<br />Ondina, Salvador - BA, 40169-610</p>
+                <strong>{SITE_CONFIG.address.shopping}</strong>
+                <p>
+                  {SITE_CONFIG.address.street}<br />
+                  {SITE_CONFIG.address.bairro}, {SITE_CONFIG.address.city} - {SITE_CONFIG.address.state}, CEP {SITE_CONFIG.address.cep}
+                </p>
               </div>
             </div>
             
             <a 
-              href={mapsUrl} 
+              href={SITE_CONFIG.address.mapsUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
               class="footer-map-card__btn"
@@ -126,14 +130,14 @@ const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887
     }
 
     &__logo-img {
-      height: 68px;
+      height: 105px;
       width: auto;
       filter: brightness(0) invert(1);
       opacity: 0.95;
       transition: opacity 0.3s ease;
 
       @include respond-to(mobile) {
-        height: 55px;
+        height: 80px;
       }
 
       &:hover {

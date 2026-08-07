@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { SITE_CONFIG } from '../config/site';
 import '../styles/main.scss';
 
 interface Props {
@@ -10,22 +11,24 @@ interface Props {
 }
 
 const { 
-  title = "Printt Cores | Gráfica & Estúdio de Impressão Premium em Salvador", 
+  title = "Printt Cores | Impressão Gráfica em Salvador", 
   description = "Estúdio de impressão digital e soluções gráficas personalizadas no Apipema Center, Ondina, Salvador - BA. Canecas personalizadas, porta-retratos, presentes e comunicação visual." 
 } = Astro.props;
 
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "PrintShop",
-  "name": "Printt Cores",
+  "name": SITE_CONFIG.name,
   "url": "https://printtcores.com.br",
   "description": description,
+  "email": SITE_CONFIG.contact.email,
+  "telephone": SITE_CONFIG.contact.phoneRaw,
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "R. Prof. Sabino Silva, 836 - LJ. 109, Apipema Center",
-    "addressLocality": "Ondina, Salvador",
-    "addressRegion": "BA",
-    "postalCode": "40169-610",
+    "streetAddress": SITE_CONFIG.address.street,
+    "addressLocality": `${SITE_CONFIG.address.bairro}, ${SITE_CONFIG.address.city}`,
+    "addressRegion": SITE_CONFIG.address.state,
+    "postalCode": SITE_CONFIG.address.cep,
     "addressCountry": "BR"
   },
   "geo": {
@@ -33,7 +36,6 @@ const schemaData = {
     "latitude": -13.01256,
     "longitude": -38.51737
   },
-  "telephone": "+5500000000000",
   "priceRange": "$$"
 };
 ---
@@ -120,30 +122,9 @@ const schemaData = {
           }
         });
 
-        // IntersectionObserver para atualizar a URL com o hash da seção ativa (ex: /#servicos)
-        const sections = document.querySelectorAll<HTMLElement>('section[id]');
-        if (sections.length > 0 && 'IntersectionObserver' in window) {
-          const observerOptions = {
-            root: null,
-            rootMargin: '-20% 0px -60% 0px',
-            threshold: 0
-          };
-
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                if (id) {
-                  const newHash = `#${id}`;
-                  if (window.location.hash !== newHash) {
-                    history.replaceState(null, '', newHash);
-                  }
-                }
-              }
-            });
-          }, observerOptions);
-
-          sections.forEach((sec) => observer.observe(sec));
+        // Garantir que a URL permaneça limpa em '/' sem hashtags
+        if (window.location.hash) {
+          history.replaceState(null, '', window.location.pathname);
         }
       });
     </script>
